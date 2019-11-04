@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">    <title>ESKETIT</title>
+    <meta charset="UTF-8">    <title>Hádání čísla</title>
     <script>
-        function nactiDatum() {
-            setInterval(seznam, 1000);
-            fetch("http://localhost:88/dentyd").then(function(response) {
+        function novecislo(){
+            let maximum = document.getElementById("max").value;
+            let minimum = document.getElementById("min").value;
+            fetch("http://localhost:88/gencisla?max="+maximum+"&min="+minimum).then(function(response) {
                 response.text().then(function(text) {
                     let obj = JSON.parse(text);
-                    document.getElementById("den").innerHTML = obj.dnycsk;
-                    document.getElementById("datum").innerHTML = obj.date;
-                });
-            });
-            nactiSvatek();
+                    document.getElementById("cislo").innerHTML = obj.cislo;
+                })
+            })
+        }
+        function kontrola(){
+            let guess = document.getElementById("guess").value;
+            let cislo = document.getElementById("cislo").value;
+            fetch("http://localhost:88/kontcisla?guess="+guess+"&cislo="+cislo).then(function(response) {
+                response.text().then(function(text) {
+                    let obj = JSON.parse(text);
+                    if (obj.vys === 1){document.getElementById("vysledek").innerHTML = "Moc vysoké"}
+                    if (obj.vys === 2){document.getElementById("vysledek").innerHTML = "Moc nízké"}
+                    if (obj.vys === 3){document.getElementById("vysledek").innerHTML = "SPRÁVNĚ"}
+                })
+            })
+        }
     </script>
 </head>
 <body style="font-family: Calibri; font-size: 25px">
-
+<h1>Hádání čísla</h1>
+Minimální: <input type="text" id="min">
+Maximální: <input type="text" id="max">
+<input type="button" value="Nové číslo" onClick="novecislo()">
+<span id="cislo"></span><br>
+Odhad: <input type="number" id="guess">
+<input type="button" value="Zkontrolovat" onClick="kontrola()">
+<span id="vysledek"></span>
 </body>
 </html>
