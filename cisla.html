@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    <title>ESKETIT</title>
+    <script>
+        function nactiDatum() {
+            setInterval(seznam, 1000);
+            fetch("http://localhost:88/dentyd").then(function(response) {
+                response.text().then(function(text) {
+                    let obj = JSON.parse(text);
+                    document.getElementById("den").innerHTML = obj.dnycsk;
+                    document.getElementById("datum").innerHTML = obj.date;
+                });
+            });
+            nactiSvatek();
+    </script>
+</head>
+<body style="font-family: Calibri; font-size: 25px">
+
+</body>
+</html>
