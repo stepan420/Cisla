@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">    <title>Hádání čísla</title>
     <script>
+        const HOST = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "");
         function novecislo(){
             let maximum = document.getElementById("max").value;
             let minimum = document.getElementById("min").value;
-            fetch("http://localhost:88/gencisla/nove?max="+maximum+"&min="+minimum).then(function(response) {
+            fetch(HOST + "/gencisla/nove?max="+maximum+"&min="+minimum).then(function(response) {
                 response.text().then(function(text) {})
             })
         }
         function kontrola(){
             let guess = document.getElementById("guess").value;
-            fetch("http://localhost:88/gencisla/kontrola?guess="+guess).then(function(response) {
+            fetch(HOST + "/gencisla/kontrola?guess="+guess).then(function(response) {
                 response.text().then(function(text) {
                     let obj = JSON.parse(text);
-                    document.getElementById("vysledek").innerHTML = obj.vys
-                    document.getElementById("odpovedi").innerHTML = obj.odp
+                    document.getElementById("vysledek").innerHTML = obj.vys;
+                    document.getElementById("odpovedi").innerHTML = obj.odp;
                 })
             })
         }
