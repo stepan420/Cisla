@@ -1,7 +1,7 @@
 let obj = {};
 obj.odp = "";
 exports.apiGenCisla = function(req, res, q) {
-    res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin": "*"});
+    res.writeHead(200, {"Content-type": "application/json"});
     if (q.pathname === "/gencisla/nove"){
         if (q.query["max"] && q.query["min"]) {
             let max = Math.trunc(q.query["max"]);
